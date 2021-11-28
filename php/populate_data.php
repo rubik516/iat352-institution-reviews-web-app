@@ -1,10 +1,10 @@
 <?php
     include("helper_populate.php");
 
-    $institution_file = "institutionsData.csv";
+    $institution_file = "../data/institutionsData.csv";
     $institutions = readInstitutionsFromCSV($institution_file);
 
-    $rank_file = "ranksData.csv";
+    $rank_file = "../data/ranksData.csv";
     $institution_ranks = readInstitutionRankFromCSV($rank_file);
 
     connectToDatabase();

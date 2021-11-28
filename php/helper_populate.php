@@ -40,7 +40,7 @@
     function insertInstitutionRank($rank_info) {
         global $db;
         $values = prepareRankValues($rank_info);
-        $query = "INSERT INTO " . INSTITUTION_RANK . "2 VALUES " . "(". $values . ");";
+        $query = "INSERT INTO " . INSTITUTION_RANK . " VALUES " . "(". $values . ");";
         if ($db->query($query) === false) {
             echo "Error occured: " . $db->error;
         }
