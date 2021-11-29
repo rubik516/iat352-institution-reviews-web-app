@@ -1,0 +1,32 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 2rem;
+    font-size: 1rem;
+}
+
+div.item-card {
+    border: solid gray 1px;
+    border-radius: 1rem;
+    padding: 1rem;
+}
+
+div.item-list {
+    margin-top: 1rem;
+}
+
+div.item-list.grid.three-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 0.5rem;
+    grid-row-gap: 0.5rem;
+}
+
+div.item-card .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
