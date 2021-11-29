@@ -25,7 +25,7 @@
     }
 
     function fetchInstitutions() {
-        $fetchInstitutionsQuery = constructFetchInstitutionQuery();
+        $fetchInstitutionsQuery = constructFetchInstitutionsQuery();
         if (!queryDatabase($fetchInstitutionsQuery)) {
             echo "Error occurred!";
             disconnectFromDatabase();
@@ -34,7 +34,31 @@
         return queryDatabase($fetchInstitutionsQuery);
     }
 
-    function constructFetchInstitutionQuery() {
+    function fetchCountries() {
+        $fetchCountryQuery = constructFetchCountriesQuery();
+        if (!queryDatabase($fetchCountryQuery)) {
+            echo "Error occurred!";
+            disconnectFromDatabase();
+            exit;
+        }
+        return queryDatabase($fetchCountryQuery);
+    }
+
+    function getInstitutionFromDatabase($institutionName) {
+        global $db;
+        connectToDatabase();
+        $getInstitutionByNameQuery = constructGetInstitutionByNameQuery();
+        $statement = $db->prepare($getInstitutionByNameQuery);
+        $statement->bind_param("s", $institutionName);
+        $statement->execute();
+        $result = $statement->get_result();
+        $row = $result->fetch_assoc();
+        $result->free_result();
+        disconnectFromDatabase();
+        return $row;
+    }
+
+    function constructFetchInstitutionsQuery() {
         global $institutionName, $institutionCountry, $worldRank, $numStudents,
                $internationalStudentPercentage, $internationalOutlook;
         return "SELECT " . $institutionName . ", " .
@@ -46,5 +70,16 @@
             " FROM " . INSTITUTION . " ORDER BY " . $institutionName . " ASC";
     }
 
+    function constructFetchCountriesQuery() {
+        global $institutionCountry;
+        return "SELECT DISTINCT " . $institutionCountry .
+                " FROM " . INSTITUTION .
+                " ORDER BY " . $institutionCountry . " ASC;";
+    }
 
+    function constructGetInstitutionByNameQuery() {
+        global $institutionName;
+        return "SELECT * FROM " . INSTITUTION .
+                " WHERE " . $institutionName . " = ?";
+    }
 ?>

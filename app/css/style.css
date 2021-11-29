@@ -9,10 +9,26 @@ body {
     font-size: 1rem;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
 div.item-card {
+    background-color: white;
     border: solid gray 1px;
     border-radius: 1rem;
     padding: 1rem;
+    transform: scale(1);
+}
+
+div.item-card:hover, div.item-card:focus {
+    background-color: lightgoldenrodyellow;
+    transform: scale(1.02);
+}
+
+div.item-card:active {
+    transform: scale(0.96);
 }
 
 div.item-list {
@@ -22,7 +38,7 @@ div.item-list {
 div.item-list.grid.three-columns {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 0.5rem;
+    grid-column-gap: 0.75rem;
     grid-row-gap: 0.5rem;
 }
 
