@@ -1,5 +1,5 @@
 <?php
-    include("helpers/helper_database.php");
+    include("helper_database.php");
 
     function setHeaderAndPageTitle($title) {
         ob_start();
@@ -31,12 +31,17 @@
     function getClickedInstitution() {
         if (isset($_GET['institution'])) {
             $institutionName = $_GET['institution'];
-            return getInstitutionFromDatabase($institutionName);
+            connectToDatabase();
+            $result = getInstitutionByNameOrCountry($institutionName);
+            $row = $result->fetch_assoc(); // get the first matched result
+            freeQueryResult($result);
+            disconnectFromDatabase();
+            return $row;
         }
     }
 
     function displayInstitutionSummary($institutions) {
-        echo "<div class='item-list grid three-columns'>";
+        echo "<div id='institution-list' class='item-list grid three-columns'>";
         foreach($institutions as $institution) {
             echo "<div class='item-card'>";
             echo "<a href='institution_details.php?institution=" . $institution['name'] . "'>";
@@ -83,7 +88,7 @@
 
     function displayPercentage($value) {
         if ($value != "N/A") {
-            return strval($value*100) . "%";
+            return $value*100 . "%";
         }
     }
 ?>

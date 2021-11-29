@@ -7,6 +7,8 @@
         <title>%PAGE_TITLE%</title>
 
         <link rel="stylesheet" type="text/css" href="css/style.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
         <script src="js/script.js" defer></script>
     </head>
     <body>

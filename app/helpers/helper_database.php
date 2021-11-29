@@ -44,18 +44,22 @@
         return queryDatabase($fetchCountryQuery);
     }
 
-    function getInstitutionFromDatabase($institutionName) {
+    function getInstitutionByNameOrCountry($queriedString) {
         global $db;
-        connectToDatabase();
-        $getInstitutionByNameQuery = constructGetInstitutionByNameQuery();
-        $statement = $db->prepare($getInstitutionByNameQuery);
-        $statement->bind_param("s", $institutionName);
+        $getInstitutionQuery = "";
+        if (queryByInstitutionName()) {
+            $getInstitutionQuery = constructGetInstitutionByNameQuery();
+        } elseif (queryByCountry()) {
+            $getInstitutionQuery = constructGetInstitutionsByCountry();
+        } else {
+            echo "Error occured";
+            disconnectFromDatabase();
+            exit;
+        }
+        $statement = $db->prepare($getInstitutionQuery);
+        $statement->bind_param("s", $queriedString);
         $statement->execute();
-        $result = $statement->get_result();
-        $row = $result->fetch_assoc();
-        $result->free_result();
-        disconnectFromDatabase();
-        return $row;
+        return $statement->get_result();
     }
 
     function constructFetchInstitutionsQuery() {
@@ -81,5 +85,19 @@
         global $institutionName;
         return "SELECT * FROM " . INSTITUTION .
                 " WHERE " . $institutionName . " = ?";
+    }
+
+    function constructGetInstitutionsByCountry() {
+        global $institutionCountry;
+        return "SELECT * FROM " . INSTITUTION .
+            " WHERE " . $institutionCountry . " = ?";
+    }
+
+    function queryByInstitutionName() {
+        return isset($_GET['institution']);
+    }
+
+    function queryByCountry() {
+        return isset($_GET['country']);
     }
 ?>
