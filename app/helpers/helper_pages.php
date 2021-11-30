@@ -83,7 +83,7 @@
     }
 
     function contentOrNotAvailable($data) {
-        return ($data == 0 or $data == 10000 or $data == null) ? "N/A" : $data;
+        return ($data == 0 or $data == 10000 or $data == "" or $data == null) ? "N/A" : $data;
     }
 
     function displayPercentage($value) {

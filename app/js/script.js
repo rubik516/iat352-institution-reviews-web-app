@@ -4,6 +4,7 @@ jQuery(document).ready(function($) {
     filterAndUpdateByCountry($);
     sortAlphabetically($);
     addToFavourite($);
+    removeFromFavourite($);
 });
 
 function sortAlphabetically($) {
@@ -52,9 +53,27 @@ function addToFavourite($) {
         $.ajax({
             type: 'GET',
             url: addFavouriteUrl,
-            data: { fave_institution: document.getElementsByTagName("h1")[0].innerText },
+            data: { favouriteInstitution: document.getElementsByTagName("h1")[0].innerText },
             success: function(response) {
-                window.location.href = "./favourite.php";
+                window.location.reload();
+            },
+            fail: function(response) {
+                console.log("Filter by country fail");
+            },
+        });
+    });
+}
+
+function removeFromFavourite($) {
+    $('.button.remove-favourite').click(function(event) {
+        event.preventDefault();
+        let removeFavouriteUrl = $(this).attr("href");
+        $.ajax({
+            type: 'GET',
+            url: removeFavouriteUrl,
+            data: { institutionToBeRemoved: document.getElementsByTagName("h1")[0].innerText },
+            success: function(response) {
+                window.location.reload();
             },
             fail: function(response) {
                 console.log("Filter by country fail");

@@ -1,5 +1,7 @@
 <?php
     include("dbconnect.php");
+    include("queries.php");
+
     function connectToDatabase() {
         global $db;
         $db = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -30,7 +32,7 @@
     }
 
     function fetchInstitutions($requiredSorting) {
-        $query = constructFetchInstitutionsQuery();
+        $query = fetchInstitutionsQuery();
         if ($requiredSorting) {
             $query .= orderBy(getSortingOption());
         }
@@ -38,18 +40,18 @@
     }
 
     function fetchCountries() {
-        $query = constructFetchCountriesQuery();
+        $query = fetchCountriesQuery();
         return queryDatabase($query);
     }
 
     function fetchMyFavourite($user) {
-        $query = constructFetchFavouriteInstitutionsQuery($user);
+        $query = fetchFavouriteInstitutionsQuery($user);
         return queryDatabase($query);
     }
 
     function getInstitutionsByCountry($queriedCountry, $requiredSorting) {
         global $db;
-        $query = constructGetInstitutionsByCountryQuery();
+        $query = getInstitutionsByCountryQuery();
 
         if ($requiredSorting) {
             $query .= orderBy(getSortingOption());
@@ -62,7 +64,7 @@
 
     function getInstitutionByName($queriedName) {
         global $db;
-        $query = constructGetInstitutionByNameQuery();
+        $query = getInstitutionByNameQuery();
         $statement = $db->prepare($query);
         $statement->bind_param("s", $queriedName);
         $statement->execute();
@@ -70,68 +72,43 @@
     }
 
     function insertFavouriteInstitution($institutionName) {
-        $query = constructInsertFavouriteInstitutionQuery($institutionName);
-        if (!queryDatabase($query)) {
-            echo "Error occurred! Cannot insert new favourite!";
-            disconnectFromDatabase();
-            exit;
-        }
-    }
-
-    function isFavourite($institutionName) {
-        $query = "SELECT count(*) AS count FROM " . FAVOURITE . " WHERE institution = \"" . $institutionName . "\";";
+        global $db;
+        $query = insertFavouriteInstitutionQuery();
 
         connectToDatabase();
-        $result = queryDatabase($query);
-        $count = $result->fetch_assoc()['count'];
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $institutionName);
+        $statement->execute();
+        // INSERT is a non-DML operation, so free_result is not necessary
+        disconnectFromDatabase();
+    }
+
+    function removeFromFavourite($user, $institutionName) {
+        global $db;
+        $query = removeFromFavouriteQuery($user);
+
+        connectToDatabase();
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $institutionName);
+        $statement->execute();
+        // DELETE is a non-DML operation, so free_result is not necessary
+        disconnectFromDatabase();
+    }
+
+    function isFavourite($user, $institutionName) {
+        global $db;
+        $query = isFavouriteInstitutionQuery($user);
+
+        connectToDatabase();
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $institutionName);
+        $statement->execute();
+        $result = $statement->get_result();
+        $count = $result->fetch_assoc()['institution_count'];
         freeQueryResult($result);
         disconnectFromDatabase();
+
         return $count > 0;
-    }
-
-    function constructFetchInstitutionsQuery() {
-        return "SELECT * FROM " . INSTITUTION;
-    }
-
-    function constructFetchCountriesQuery() {
-        global $institutionCountry;
-        return "SELECT DISTINCT " . $institutionCountry .
-                " FROM " . INSTITUTION .
-                " ORDER BY " . $institutionCountry . " ASC;";
-    }
-
-    function constructGetInstitutionByNameQuery() {
-        global $institutionName;
-        return "SELECT * FROM " . INSTITUTION .
-                " WHERE " . $institutionName . " = ?";
-    }
-
-    function constructGetInstitutionsByCountryQuery() {
-        global $institutionCountry;
-        return "SELECT * FROM " . INSTITUTION .
-            " WHERE " . $institutionCountry . " = ?";
-    }
-
-    function constructInsertFavouriteInstitutionQuery($institutionName) {
-        return "INSERT INTO " . FAVOURITE . " VALUES " . "(\"user@example.com\", \"" . $institutionName . "\");";
-    }
-
-    function constructFetchFavouriteInstitutionsQuery($user) {
-        global $institutionName;
-        return "SELECT ". INSTITUTION . ".* FROM " . INSTITUTION . " JOIN " . FAVOURITE .
-            " ON " . FAVOURITE . ".user = \"" . $user .
-            "\" AND " . $institutionName . " = " . FAVOURITE . ".institution" .
-            " ORDER BY " . $institutionName . ";";
-    }
-
-    function orderBy($option) {
-        $orderBy = " ORDER BY " . $option;
-        if ($option == 'name' or $option == 'world_rank') {
-            $orderBy .= " ASC;";
-        } else {
-            $orderBy .= " DESC;";
-        }
-        return $orderBy;
     }
 
     function queryByCountry() {

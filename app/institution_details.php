@@ -16,8 +16,9 @@
         echo "<h1>" . $title . "</h1>";
         displayInstitutionDetails($clickedInstitution);
 
-        if (isFavourite($clickedInstitution['name'])) {
-            echo "<p class=\"button favourited\">In my favourite list</p>";
+        if (isFavourite("user@example.com", $clickedInstitution['name'])) {
+            echo "<p class=\"button favourited\">In My Favourite List</p>";
+            echo "<a href=\"./helpers/remove_from_favourite.php\" class=\"button remove-favourite\">Remove From My Favourite</a>";
         } else {
             echo "<a href=\"./helpers/add_to_favourite.php\" class=\"button add-favourite\">Add To My Favourite</a>";
         }

@@ -59,8 +59,15 @@ button, .button {
     margin-top: 1rem;
 }
 
-.button.favourited {
+.button.favourited, .button.favourited:hover, .button.favourited:focus {
     background-color: var(--candy-pink);
+    color: white;
+    margin-right: 1rem;
+}
+
+button:hover, button:focus, .button:hover, .button:focus {
+    background-color: var(--sand-orange);
+    color: black;
 }
 
 div.item-card {
@@ -92,16 +99,12 @@ div.item-list.grid.three-columns {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 0.75rem;
-    grid-row-gap: 0.5rem;
+    grid-row-gap: 0.75rem;
 }
 
 div.item-card .title {
     font-size: 1.25rem;
     font-weight: bold;
-}
-
-.sr-only {
-    display: none;
 }
 
 .filter-group {
