@@ -3,6 +3,7 @@ jQuery.noConflict();
 jQuery(document).ready(function($) {
     filterAndUpdateByCountry($);
     sortAlphabetically($);
+    addToFavourite($);
 });
 
 function sortAlphabetically($) {
@@ -36,6 +37,24 @@ function filterAndUpdateByCountry($) {
             },
             success: function(response) {
                 $('#institution-list').replaceWith(response);
+            },
+            fail: function(response) {
+                console.log("Filter by country fail");
+            },
+        });
+    });
+}
+
+function addToFavourite($) {
+    $('.button.add-favourite').click(function(event) {
+        event.preventDefault();
+        let addFavouriteUrl = $(this).attr("href");
+        $.ajax({
+            type: 'GET',
+            url: addFavouriteUrl,
+            data: { fave_institution: document.getElementsByTagName("h1")[0].innerText },
+            success: function(response) {
+                window.location.href = "./favourite.php";
             },
             fail: function(response) {
                 console.log("Filter by country fail");

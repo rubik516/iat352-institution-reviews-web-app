@@ -58,6 +58,7 @@
     }
 
     function displayInstitutionDetails($institution) {
+        echo "<div class='institution-details'>";
         echo "<p>Country: " . contentOrNotAvailable($institution['country']) . "</p>";
         echo "<p>World rank: " . contentOrNotAvailable($institution['world_rank']) . "</p>";
         echo "<p>National rank: " . contentOrNotAvailable($institution['national_rank']) . "</p>";
@@ -71,6 +72,7 @@
         echo "<p>Number of students: " . contentOrNotAvailable($institution['num_students']) . "</p>";
         echo "<p>International Students Percentage: " . displayPercentage(contentOrNotAvailable($institution['international_students'])) . "</p>";
         echo "<p>Female : Male Ratio: " . contentOrNotAvailable($institution['female_male_ratio']) . "</p>";
+        echo "</div>";
     }
 
     function populateCountryDropdown($countries) {

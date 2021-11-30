@@ -1,3 +1,11 @@
+:root {
+    --oregon-blue: #355070;
+    --dusky-plum: #6D597A;
+    --rose-desert: #B56576;
+    --candy-pink: #E56B6F;
+    --sand-orange: #EAAC8B;
+}
+
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -5,18 +13,54 @@
 }
 
 body {
-    margin: 2rem 8rem;
     font-size: 1rem;
+}
+
+main {
+    margin: 10rem 6rem;
+}
+
+nav {
+    background-color: var(--oregon-blue);
+    color: white;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem 3rem 1rem 0;
+    justify-content: right;
+    z-index: 10;
+}
+
+nav .nav-item {
+    color: white;
+    font-size: 1.25rem;
+    padding: 1rem 2rem 1rem 1rem;
 }
 
 h1 {
     font-size: 3rem;
-    margin-top: 4rem;
+    margin-top: 8rem;
 }
 
 a {
     text-decoration: none;
     color: black;
+}
+
+button, .button {
+    padding: 1.25rem 2rem;
+    background-color: var(--oregon-blue);
+    color: white;
+    border-radius: 2rem;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.button.favourited {
+    background-color: var(--candy-pink);
 }
 
 div.item-card {
@@ -28,8 +72,12 @@ div.item-card {
 }
 
 div.item-card:hover, div.item-card:focus {
-    background-color: lightgoldenrodyellow;
+    background-color: var(--dusky-plum);
     transform: scale(1.02);
+}
+
+div.item-card:hover a, div.item-card:focus a {
+    color: white;
 }
 
 div.item-card:active {
@@ -59,8 +107,9 @@ div.item-card .title {
 .filter-group {
     margin-top: 3rem;
     margin-bottom: 2rem;
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-column-gap: 1rem;
 }
 
 .field {
@@ -76,8 +125,13 @@ div.item-card .title {
 }
 
 input, select {
-    padding: 1rem;
+    padding: 1.25rem;
     border: solid 1px;
     border-radius: 0.5rem;
-    width: 25rem;
+    width: 100%;
+}
+
+.institution-details {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
 }

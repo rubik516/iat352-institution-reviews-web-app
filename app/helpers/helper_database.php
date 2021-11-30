@@ -42,6 +42,11 @@
         return queryDatabase($query);
     }
 
+    function fetchMyFavourite($user) {
+        $query = constructFetchFavouriteInstitutionsQuery($user);
+        return queryDatabase($query);
+    }
+
     function getInstitutionsByCountry($queriedCountry, $requiredSorting) {
         global $db;
         $query = constructGetInstitutionsByCountryQuery();
@@ -62,6 +67,26 @@
         $statement->bind_param("s", $queriedName);
         $statement->execute();
         return $statement->get_result();
+    }
+
+    function insertFavouriteInstitution($institutionName) {
+        $query = constructInsertFavouriteInstitutionQuery($institutionName);
+        if (!queryDatabase($query)) {
+            echo "Error occurred! Cannot insert new favourite!";
+            disconnectFromDatabase();
+            exit;
+        }
+    }
+
+    function isFavourite($institutionName) {
+        $query = "SELECT count(*) AS count FROM " . FAVOURITE . " WHERE institution = \"" . $institutionName . "\";";
+
+        connectToDatabase();
+        $result = queryDatabase($query);
+        $count = $result->fetch_assoc()['count'];
+        freeQueryResult($result);
+        disconnectFromDatabase();
+        return $count > 0;
     }
 
     function constructFetchInstitutionsQuery() {
@@ -85,6 +110,18 @@
         global $institutionCountry;
         return "SELECT * FROM " . INSTITUTION .
             " WHERE " . $institutionCountry . " = ?";
+    }
+
+    function constructInsertFavouriteInstitutionQuery($institutionName) {
+        return "INSERT INTO " . FAVOURITE . " VALUES " . "(\"user@example.com\", \"" . $institutionName . "\");";
+    }
+
+    function constructFetchFavouriteInstitutionsQuery($user) {
+        global $institutionName;
+        return "SELECT ". INSTITUTION . ".* FROM " . INSTITUTION . " JOIN " . FAVOURITE .
+            " ON " . FAVOURITE . ".user = \"" . $user .
+            "\" AND " . $institutionName . " = " . FAVOURITE . ".institution" .
+            " ORDER BY " . $institutionName . ";";
     }
 
     function orderBy($option) {

@@ -9,6 +9,8 @@
     const INSTITUTION_INFO = "institution_info";
     const INSTITUTION_RANK = "institution_rank";
     const INSTITUTION = "institution";
+    const USER = "user";
+    const FAVOURITE = "favourite";
 
     // Columns for INSTITUTION
     $institutionId = "institution.institution_id";
