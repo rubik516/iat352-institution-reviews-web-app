@@ -3,7 +3,7 @@
 
     if (isset($_GET['country'])) {
         connectToDatabase();
-        $result = getInstitutionByNameOrCountry($_GET['country']);
+        $result = getInstitutionsByCountry(getQueriedCountry(), requiredSorting());
         displayInstitutionSummary($result);
         freeQueryResult($result);
         disconnectFromDatabase();

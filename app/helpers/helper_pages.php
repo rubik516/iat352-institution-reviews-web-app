@@ -14,7 +14,7 @@
     function displayInstitutions() {
         connectToDatabase();
         global $institutions;
-        $institutions = fetchInstitutions();
+        $institutions = fetchInstitutions(requiredSorting());
         displayInstitutionSummary($institutions);
         freeQueryResult($institutions);
         disconnectFromDatabase();
@@ -32,7 +32,7 @@
         if (isset($_GET['institution'])) {
             $institutionName = $_GET['institution'];
             connectToDatabase();
-            $result = getInstitutionByNameOrCountry($institutionName);
+            $result = getInstitutionByName($institutionName);
             $row = $result->fetch_assoc(); // get the first matched result
             freeQueryResult($result);
             disconnectFromDatabase();
@@ -74,21 +74,28 @@
     }
 
     function populateCountryDropdown($countries) {
-        echo "<select id='country-dropdown' name='country-dropdown'>";
+        echo "<option value='' selected disabled hidden></option>";
         foreach($countries as $country) {
-            echo "<option value='" . $country['country'] . "'>" . $country['country'] . "</option>";
-            print_r($country);
+            echo "<option value='" . $country['country'] . "' " . is_selected($country['country']) . ">" . $country['country'] . "</option>";
         }
-        echo "</select>";
     }
 
     function contentOrNotAvailable($data) {
-        return ($data == -1 or $data == 0 or $data == null) ? "N/A" : $data;
+        return ($data == 0 or $data == 10000 or $data == null) ? "N/A" : $data;
     }
 
     function displayPercentage($value) {
         if ($value != "N/A") {
             return $value*100 . "%";
         }
+    }
+
+    function is_selected($option) {
+        if (isset($_GET['country'])) {
+            if ($_GET['country'] == $option) {
+                return "selected";
+            }
+        }
+        return "";
     }
 ?>

@@ -21,57 +21,51 @@
 
     function queryDatabase($query) {
         global $db;
+        if (!$db->query($query)) {
+            echo "Error occurred!";
+            disconnectFromDatabase();
+            exit;
+        }
         return $db->query($query);
     }
 
-    function fetchInstitutions() {
-        $fetchInstitutionsQuery = constructFetchInstitutionsQuery();
-        if (!queryDatabase($fetchInstitutionsQuery)) {
-            echo "Error occurred!";
-            disconnectFromDatabase();
-            exit;
+    function fetchInstitutions($requiredSorting) {
+        $query = constructFetchInstitutionsQuery();
+        if ($requiredSorting) {
+            $query .= orderBy(getSortingOption());
         }
-        return queryDatabase($fetchInstitutionsQuery);
+        return queryDatabase($query);
     }
 
     function fetchCountries() {
-        $fetchCountryQuery = constructFetchCountriesQuery();
-        if (!queryDatabase($fetchCountryQuery)) {
-            echo "Error occurred!";
-            disconnectFromDatabase();
-            exit;
-        }
-        return queryDatabase($fetchCountryQuery);
+        $query = constructFetchCountriesQuery();
+        return queryDatabase($query);
     }
 
-    function getInstitutionByNameOrCountry($queriedString) {
+    function getInstitutionsByCountry($queriedCountry, $requiredSorting) {
         global $db;
-        $getInstitutionQuery = "";
-        if (queryByInstitutionName()) {
-            $getInstitutionQuery = constructGetInstitutionByNameQuery();
-        } elseif (queryByCountry()) {
-            $getInstitutionQuery = constructGetInstitutionsByCountry();
-        } else {
-            echo "Error occured";
-            disconnectFromDatabase();
-            exit;
+        $query = constructGetInstitutionsByCountryQuery();
+
+        if ($requiredSorting) {
+            $query .= orderBy(getSortingOption());
         }
-        $statement = $db->prepare($getInstitutionQuery);
-        $statement->bind_param("s", $queriedString);
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $queriedCountry);
+        $statement->execute();
+        return $statement->get_result();
+    }
+
+    function getInstitutionByName($queriedName) {
+        global $db;
+        $query = constructGetInstitutionByNameQuery();
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $queriedName);
         $statement->execute();
         return $statement->get_result();
     }
 
     function constructFetchInstitutionsQuery() {
-        global $institutionName, $institutionCountry, $worldRank, $numStudents,
-               $internationalStudentPercentage, $internationalOutlook;
-        return "SELECT " . $institutionName . ", " .
-            $institutionCountry . ", " .
-            $worldRank . ", " .
-            $numStudents . ", " .
-            $internationalOutlook . ", " .
-            $internationalStudentPercentage .
-            " FROM " . INSTITUTION . " ORDER BY " . $institutionName . " ASC";
+        return "SELECT * FROM " . INSTITUTION;
     }
 
     function constructFetchCountriesQuery() {
@@ -87,17 +81,39 @@
                 " WHERE " . $institutionName . " = ?";
     }
 
-    function constructGetInstitutionsByCountry() {
+    function constructGetInstitutionsByCountryQuery() {
         global $institutionCountry;
         return "SELECT * FROM " . INSTITUTION .
             " WHERE " . $institutionCountry . " = ?";
     }
 
-    function queryByInstitutionName() {
-        return isset($_GET['institution']);
+    function orderBy($option) {
+        $orderBy = " ORDER BY " . $option;
+        if ($option == 'name' or $option == 'world_rank') {
+            $orderBy .= " ASC;";
+        } else {
+            $orderBy .= " DESC;";
+        }
+        return $orderBy;
     }
 
     function queryByCountry() {
-        return isset($_GET['country']);
+        return isset($_GET['country']) && !empty($_GET['country']);
+    }
+
+    function requiredSorting() {
+        return isset($_GET['sortBy']) && !empty($_GET['sortBy']);
+    }
+
+    function getQueriedCountry() {
+        if(queryByCountry()) {
+            return $_GET['country'];
+        }
+    }
+
+    function getSortingOption() {
+        if (requiredSorting()) {
+            return $_GET['sortBy'];
+        }
     }
 ?>

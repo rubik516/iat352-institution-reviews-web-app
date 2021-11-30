@@ -9,6 +9,11 @@ body {
     font-size: 1rem;
 }
 
+h1 {
+    font-size: 3rem;
+    margin-top: 4rem;
+}
+
 a {
     text-decoration: none;
     color: black;
@@ -45,4 +50,34 @@ div.item-list.grid.three-columns {
 div.item-card .title {
     font-size: 1.25rem;
     font-weight: bold;
+}
+
+.sr-only {
+    display: none;
+}
+
+.filter-group {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.field {
+    position: relative;
+}
+
+.field label {
+    position: absolute;
+    background-color: white;
+    padding: 0 0.5rem;
+    top: -0.6rem;
+    left: 0.75rem;
+}
+
+input, select {
+    padding: 1rem;
+    border: solid 1px;
+    border-radius: 0.5rem;
+    width: 25rem;
 }
