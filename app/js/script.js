@@ -2,17 +2,17 @@
 jQuery.noConflict();
 jQuery(document).ready(function($) {
     filterAndUpdateByCountry($);
-    sortAlphabetically($);
+    sortInstitutionsAsync($);
     addToFavourite($);
     removeFromFavourite($);
 });
 
-function sortAlphabetically($) {
+function sortInstitutionsAsync($) {
     $('select[name="sorting-options"]').change(function(event) {
         event.preventDefault();
         $.ajax({
             type: 'GET',
-            url: './helpers/sort_institution_alphabetically.php',
+            url: './helpers/sort_institutions.php',
             data: { sortBy: $(this).val(),
                     country: $('select[name="country-dropdown"]').val(),
             },
