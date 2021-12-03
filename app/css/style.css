@@ -138,3 +138,7 @@ input, select {
     margin-top: 3rem;
     margin-bottom: 2rem;
 }
+
+.form-group {
+    margin-top: 0.5rem;
+}
