@@ -8,3 +8,7 @@ session_start();
 unset($_SESSION);
 session_destroy();
 ?>
+
+<main>
+    <h2>You are logged out</h2>
+</main>
