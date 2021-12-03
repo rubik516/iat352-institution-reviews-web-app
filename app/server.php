@@ -66,18 +66,5 @@ if (isset($_POST['login_user'])) {
         }
     }
   }
-// if (isset($_POST['loginBtn'])) {
-//     $username = mysqli_real_escape_string($db, $_POST['username']);
-//     $password = mysqli_real_escape_string($db, $_POST['password']);
-
-//     if (empty($username)) {
-//         echo "Username is required";
-//     }
-//     if (empty($password)) {
-//         echo "password is required";
-//     }
-
-    
-//   }
 ?>
 
