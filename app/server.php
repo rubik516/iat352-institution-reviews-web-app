@@ -24,6 +24,13 @@ if (is_post_request()) {
         $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
         $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
     
+        if (empty($username)) {
+            array_push($errors, "Username is required");
+        }
+        if (empty($password)) {
+            array_push($errors, "Password is required");
+        }
+
         $user_check_query = "SELECT * FROM users WHERE username='$username' OR email='$email' LIMIT 1";
         $result = mysqli_query($db, $user_check_query);
         $user = mysqli_fetch_assoc($result);
@@ -42,34 +49,38 @@ if (is_post_request()) {
             header('location: profile.php');
         }
     }
+
+    if (isset($_POST['login_user'])) {
+        $username = mysqli_real_escape_string($db, $_POST['username']);
+        $password = mysqli_real_escape_string($db, $_POST['password']);
+        if (empty($username && $password)) {
+            array_push($errors, "Username and password is required");
+        }
+        if (empty($username)) {
+            array_push($errors, "Username is required");
+        }
+        if (empty($password)) {
+            array_push($errors, "Password is required");
+        }
+      
+        if (count($errors) == 0) {
+            $password = md5($password);
+            $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
+            $results = mysqli_query($db, $query);
+            if (mysqli_num_rows($results) == 1) {
+                $_SESSION['username'] = $username;
+                $_SESSION['first_name'] = $first_name;
+                $_SESSION['last_name'] = $last_name;          
+                $_SESSION['success'] = "You are now logged in";
+              header('location: profile.php');
+            }else {
+                array_push($errors, "Wrong username/password combination");
+            }
+        }
+      }
 }
 
 
-if (isset($_POST['login_user'])) {
-    $username = mysqli_real_escape_string($db, $_POST['username']);
-    $password = mysqli_real_escape_string($db, $_POST['password']);
-  
-    if (empty($username)) {
-        array_push($errors, "Username is required");
-    }
-    if (empty($password)) {
-        array_push($errors, "Password is required");
-    }
-  
-    if (count($errors) == 0) {
-        $password = md5($password);
-        $query = "SELECT * FROM users WHERE username='$username' AND password='$password'";
-        $results = mysqli_query($db, $query);
-        if (mysqli_num_rows($results) == 1) {
-            $_SESSION['username'] = $username;
-            $_SESSION['first_name'] = $first_name;
-            $_SESSION['last_name'] = $last_name;          
-            $_SESSION['success'] = "You are now logged in";
-          header('location: profile.php');
-        }else {
-            array_push($errors, "Wrong username/password combination");
-        }
-    }
-  }
+
 ?>
 

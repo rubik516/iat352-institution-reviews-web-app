@@ -4,12 +4,22 @@ include('./helpers/helper_pages.php');
 include('server.php');
 include("includes/navbar.php");
 include("includes/header.php");
+
+if(!empty($_POST["registerBtn"])) {
+    $username = $_POST["username"];
+    $first_name = $_POST["first_name"];
+    $last_name = $_POST["last_name"];
+    $email = $_POST["email"];
+    $password_1 = $_POST["password_1"];
+    $password_2 = $_POST["password_2"];
+}
 ?>
 <main>
     <div class="container">
         <div class="login-container">
             <div class="register-form col-md-4 col-md-offset-4">
                 <!-- REGISTER FORM  -->
+                <?php include('errors.php'); ?>
                 <form action="login.php" method="post" autocomplete='off'>
                     <h2>Register Account</h2>
 
@@ -43,3 +53,4 @@ include("includes/header.php");
         </div>
     </div>
 </main>
+

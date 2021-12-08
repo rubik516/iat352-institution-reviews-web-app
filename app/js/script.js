@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
     sortInstitutionsAsync($);
     addToFavourite($);
     removeFromFavourite($);
+    registerFormValidation($);
 });
 
 function sortInstitutionsAsync($) {
@@ -81,3 +82,36 @@ function removeFromFavourite($) {
         });
     });
 }
+
+function registerFormValidation($) {
+    $("form[name='registerBtn']").validate({
+        rules: {
+            username: "required",
+            first_name: "required",
+            last_name:"required",
+            email:"required",
+            password1:"required",
+            password2:"required",
+            username: {
+                required: true
+            },
+            first_name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            password1: {
+                required: true,
+                minlength: {}
+            }
+        }
+    })
+}
+
+
+
