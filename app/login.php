@@ -12,7 +12,6 @@ include("includes/navbar.php");
             <div class="login-form col-md-4 col-md-offset-4">
                 <!-- LOGIN FORM  -->
                 <form action="login.php" method="post" autocomplete='off'>
-                    <?php include('errors.php'); ?>
                     <h2>Log in to your account</h2>
                     <!-- LOG IN  -->
                     <div class="form-group pt-2">
