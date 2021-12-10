@@ -1,11 +1,13 @@
 "use strict";
 jQuery.noConflict();
 jQuery(document).ready(function ($) {
+    console.log("working");
   filterAndUpdateByCountry($);
   sortInstitutionsAsync($);
   addToFavourite($);
   removeFromFavourite($);
   registerFormValidation($);
+  removeLogin($);
 });
 
 function sortInstitutionsAsync($) {
@@ -90,7 +92,11 @@ function removeFromFavourite($) {
   });
 }
 
-$(function () {
+function removeLogin($) {
+    $("#login").hide();
+}
+
+function registerFormValidation ($) {
   $("form[name='registerForm']").validate({
     // Define validation rules
     rules: {
@@ -150,4 +156,4 @@ $(function () {
       form.submit();
     }
   });
-});
+};
