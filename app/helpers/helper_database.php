@@ -71,13 +71,13 @@
         return $statement->get_result();
     }
 
-    function insertFavouriteInstitution($institutionName) {
+    function insertFavouriteInstitution($user, $institutionName) {
         global $db;
         $query = insertFavouriteInstitutionQuery();
 
         connectToDatabase();
         $statement = $db->prepare($query);
-        $statement->bind_param("s", $institutionName);
+        $statement->bind_param("ss", $user, $institutionName);
         $statement->execute();
         // INSERT is a non-DML operation, so free_result is not necessary
         disconnectFromDatabase();
@@ -85,11 +85,11 @@
 
     function removeFromFavourite($user, $institutionName) {
         global $db;
-        $query = removeFromFavouriteQuery($user);
+        $query = removeFromFavouriteQuery();
 
         connectToDatabase();
         $statement = $db->prepare($query);
-        $statement->bind_param("s", $institutionName);
+        $statement->bind_param("ss", $user, $institutionName);
         $statement->execute();
         // DELETE is a non-DML operation, so free_result is not necessary
         disconnectFromDatabase();

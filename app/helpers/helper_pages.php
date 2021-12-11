@@ -43,8 +43,7 @@
     function displayInstitutionSummary($institutions) {
         echo "<div id='institution-list' class='item-list grid three-columns'>";
         foreach($institutions as $institution) {
-            echo "<div class='item-card'>";
-            echo "<a href='institution_details.php?institution=" . $institution['name'] . "'>";
+            echo "<a href='institution_details.php?institution=" . $institution['name'] . "' class='item-card'>";
             echo "<p class='title'>" . contentOrNotAvailable($institution['name']) . "</p>";
             echo "<p>" . contentOrNotAvailable($institution['country']) . "</p>";
             echo "<p>World rank: " . contentOrNotAvailable($institution['world_rank']) . "</p>";
@@ -52,7 +51,6 @@
             echo "<p>Number of Students: " . contentOrNotAvailable($institution['num_students']) . "</p>";
             echo "<p>International Students Percentage: " . displayPercentage(contentOrNotAvailable($institution['international_students'])) . "</p>";
             echo "</a>";
-            echo "</div>";
         }
         echo "</div>";
     }

@@ -70,7 +70,7 @@ button:hover, button:focus, .button:hover, .button:focus {
     color: black;
 }
 
-div.item-card {
+.item-card {
     background-color: white;
     border: solid gray 1px;
     border-radius: 1rem;
@@ -78,16 +78,15 @@ div.item-card {
     transform: scale(1);
 }
 
-div.item-card:hover, div.item-card:focus {
+.item-card:hover, .item-card:focus {
     background-color: var(--dusky-plum);
     transform: scale(1.02);
-}
-
-div.item-card:hover a, div.item-card:focus a {
     color: white;
+    outline: transparent;
+    border: transparent;
 }
 
-div.item-card:active {
+.item-card:active {
     transform: scale(0.96);
 }
 
@@ -98,11 +97,11 @@ div.item-list {
 div.item-list.grid.three-columns {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 0.75rem;
-    grid-row-gap: 0.75rem;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
 }
 
-div.item-card .title {
+.item-card .title {
     font-size: 1.25rem;
     font-weight: bold;
 }
@@ -132,6 +131,10 @@ input, select {
     border: solid 1px;
     border-radius: 0.5rem;
     width: 100%;
+}
+
+input:hover, input:focus, select:hover, select:focus {
+    outline: 1px solid black;
 }
 
 .institution-details {
