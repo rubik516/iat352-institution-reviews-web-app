@@ -1,4 +1,6 @@
 "use strict";
+var $ = jQuery.noConflict();
+
 jQuery.noConflict();
 jQuery(document).ready(function ($) {
   filterAndUpdateByCountry($);
@@ -6,7 +8,6 @@ jQuery(document).ready(function ($) {
   addToFavourite($);
   removeFromFavourite($);
   registerFormValidation($);
-  loadData($);
 });
 
 function sortInstitutionsAsync($) {
@@ -154,24 +155,4 @@ function registerFormValidation($) {
   });
 }
 
-function loadData(query) {
-  $.ajax({
-    url: "./helpers/fetch.php",
-    method: "POST",
-    data: {
-      query: query,
-    },
-    success: function (data) {
-      $("#result").html(data);
-    },
-  });
-}
 
-$("#search_text").keyup(function () {
-  var search = $(this).val();
-  if (search != "") {
-    load_data(search);
-  } else {
-    load_data();
-  }
-});
