@@ -1,17 +1,16 @@
 <?php
-//fetch.php
-include("helper_pages.php");
 
-require_once("dbconnect.php");
-
+require_once("./helpers/dbconnect.php");
 $output = '';
-if (isset($_POST["query"])) {
+if (isset($_POST["quedry"])) {
     $search = mysqli_real_escape_string($conn, $_POST["query"]);
     $query = "
   SELECT * FROM institution 
   WHERE name LIKE '%" . $search . "%'
   OR country LIKE '%" . $search . "%' LIMIT 5
  ";
+    
+
 } else {
     $query = "
   SELECT * FROM name ORDER BY institution_id
