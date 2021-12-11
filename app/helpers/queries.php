@@ -30,17 +30,17 @@
     }
 
     function insertFavouriteInstitutionQuery() {
-        return "INSERT INTO " . FAVOURITE . " VALUES " . "(\"user@example.com\", ?);";
+        return "INSERT INTO " . FAVOURITE . " VALUES " . "(?, ?);";
     }
 
     function isFavouriteInstitutionQuery($user) {
         return "SELECT count(*) AS institution_count FROM " . FAVOURITE .
-            " WHERE user = \"" . $user . "\" AND " . " institution = ?;";
+            " WHERE user = \"" . $user . "\" AND institution = ?;";
     }
 
-    function removeFromFavouriteQuery($user) {
+    function removeFromFavouriteQuery() {
         return "DELETE FROM " . FAVOURITE .
-            " WHERE user = \"" . $user . "\" AND " . " institution = ?;";
+            " WHERE user = ? AND institution = ?;";
     }
 
     function orderBy($option) {

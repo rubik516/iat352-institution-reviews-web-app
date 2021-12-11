@@ -9,11 +9,14 @@
 <main>
     <h1>My Favourite</h1>
     <?php
-        connectToDatabase();
-        $favourites = fetchMyFavourite("user@example.com");
-        displayInstitutionSummary($favourites);
-        freeQueryResult($favourites);
-        disconnectFromDatabase();
+        session_start();
+        if (isset($_SESSION['email'])) {
+            connectToDatabase();
+            $favourites = fetchMyFavourite($_SESSION['email']);
+            displayInstitutionSummary($favourites);
+            freeQueryResult($favourites);
+            disconnectFromDatabase();
+        }
     ?>
 </main>
 

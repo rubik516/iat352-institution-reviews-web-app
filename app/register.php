@@ -1,9 +1,8 @@
 <?php
 include("includes/header.php");
 include('./helpers/helper_pages.php');
-include('server.php');
+include('helpers/helper_authentication.php');
 include("includes/navbar.php");
-include("includes/header.php");
 
 if(!empty($_POST["registerBtn"])) {
     $username = $_POST["username"];
@@ -13,6 +12,7 @@ if(!empty($_POST["registerBtn"])) {
     $password = $_POST["password"];
     $password_confirm = $_POST["password_confirm"];
 }
+
 ?>
 <main>
     <div class="container">
@@ -22,18 +22,17 @@ if(!empty($_POST["registerBtn"])) {
                 <form action="register.php" name="registerForm" method="post" autocomplete='off'>
                     <h2>Register Account</h2>
 
-                    <!-- USERNAME  -->
                     <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='username' name="username" value="<?php echo $username; ?>">
+                        <input type="text" class='form-control' placeholder='username' name="username">
                     </div>
                     <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='first name' name="first_name" value="<?php echo $first_name; ?>">
+                        <input type="text" class='form-control' placeholder='first name' name="first_name">
                     </div>
                     <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='last name' name="last_name" value="<?php echo $last_name; ?>">
+                        <input type="text" class='form-control' placeholder='last name' name="last_name">
                     </div>
                     <div class="form-group pt-2">
-                        <input type="email" class='form-control' placeholder='email' name="email" value="<?php echo $email; ?>">
+                        <input type="email" class='form-control' placeholder='email' name="email">
                     </div>
                     <div class="form-group pt-2">
                         <input type="password" class='form-control' placeholder='password' id='password' name="password">
@@ -52,9 +51,4 @@ if(!empty($_POST["registerBtn"])) {
         </div>
     </div>
 </main>
-
-<script>
-    
-    
-</script>
 
