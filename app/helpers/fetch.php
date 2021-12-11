@@ -12,13 +12,6 @@ if (isset($_POST["query"])) {
   WHERE name LIKE '%" . $search . "%'
   OR country LIKE '%" . $search . "%' LIMIT 5
  ";
-
-    $result = getInstitutionsByCountry(getQueriedCountry(), requiredSorting());
-    displayInstitutionSummary($result);
-    freeQueryResult($result);
-    
-    
-
 } else {
     $query = "
   SELECT * FROM name ORDER BY institution_id
