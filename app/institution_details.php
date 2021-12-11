@@ -8,6 +8,7 @@
     $title = $clickedInstitution['name'];
     setHeaderAndPageTitle($title);
 
+    session_start();
     include("includes/navbar.php");
 ?>
 
@@ -16,7 +17,6 @@
         echo "<h1>" . $title . "</h1>";
         displayInstitutionDetails($clickedInstitution);
 
-        session_start();
         if (!isset($_SESSION['email'])) {
             echo "<a href=\"./helpers/add_to_favourite.php\" class=\"button add-favourite\">Add To My Favourite</a>";
         } else {

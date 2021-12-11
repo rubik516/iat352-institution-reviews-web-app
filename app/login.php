@@ -1,8 +1,8 @@
 <?php
-include("includes/header.php");
-include('./helpers/helper_pages.php');
-include('helpers/helper_authentication.php');
-include("includes/navbar.php");
+    include("includes/header.php");
+//    include('./helpers/helper_pages.php');
+    include('helpers/helper_authentication.php');
+    include("includes/navbar.php");
 ?>
 
 
@@ -37,5 +37,5 @@ include("includes/navbar.php");
 </main>
 
 <?php
-include("includes/footer.php");
+    include("includes/footer.php");
 ?>

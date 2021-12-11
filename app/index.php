@@ -1,10 +1,11 @@
 <?php
-include("helpers/helper_pages.php");
+    session_start();
+    include("helpers/helper_pages.php");
 
-$title = "Institution List";
-setHeaderAndPageTitle($title);
+    $title = "Institution List";
+    setHeaderAndPageTitle($title);
 
-include("includes/navbar.php");
+    include("includes/navbar.php");
 ?>
 
 <main>

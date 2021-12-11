@@ -3,12 +3,15 @@
 
     session_start();
     if (!isset($_SESSION['email'])) {
-        header('location: ../login.php');
+        $response = array('redirect' => "login.php");
+        echo json_encode($response);
+        exit;
     } else {
         $user = $_SESSION['email'];
         if (isset($_POST['favouriteInstitution'])) {
             insertFavouriteInstitution($user, $_POST['favouriteInstitution']);
-            echo "inserted";
+            $response = array('success' => "success");
+            echo json_encode($response);
         } else {
             echo "Error occurred! Can't add to favourite!";
             exit;

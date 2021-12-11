@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("helpers/helper_pages.php");
     $title = "My Favourite";
     setHeaderAndPageTitle($title);
@@ -9,7 +10,6 @@
 <main>
     <h1>My Favourite</h1>
     <?php
-        session_start();
         if (isset($_SESSION['email'])) {
             connectToDatabase();
             $favourites = fetchMyFavourite($_SESSION['email']);

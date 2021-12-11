@@ -63,7 +63,12 @@ function addToFavourite($) {
         favouriteInstitution: document.getElementsByTagName("h1")[0].innerText,
       },
       success: function (response) {
-        window.location.reload();
+        let jsonResponse = JSON.parse(response);
+        if (jsonResponse['redirect']) {
+          window.location.replace(jsonResponse['redirect']);
+        } else {
+          window.location.reload();
+        }
       },
       fail: function (response) {
         console.log("Add to favourite failed");
@@ -105,7 +110,12 @@ function insertInstitutionComment($) {
         onInstitution: document.getElementsByTagName("h1")[0].innerText,
       },
       success: function (response) {
-        window.location.reload();
+        let jsonResponse = JSON.parse(response);
+        if (jsonResponse['redirect']) {
+          window.location.replace(jsonResponse['redirect']);
+        } else {
+          window.location.reload();
+        }
       },
       fail: function (response) {
         console.log("Insert comment failed");
