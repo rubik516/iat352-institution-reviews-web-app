@@ -1,10 +1,10 @@
 <?php
-    include("helpers/helper_pages.php");
+include("helpers/helper_pages.php");
 
-    $title = "Institution List";
-    setHeaderAndPageTitle($title);
+$title = "Institution List";
+setHeaderAndPageTitle($title);
 
-    include("includes/navbar.php");
+include("includes/navbar.php");
 ?>
 
 <main>
@@ -13,18 +13,17 @@
     <div class="filter-group">
         <form method="post" id="live-search">
             <div class="field">
-                <label for="search-institution">Search for institution</label>
-                <input id="search-institution" type="text" name="search-institution" placeholder="Enter an institution's name">
+                <label for="search_text">Search for institution</label>
+                <input type="text" name="institution_search" id="search_text" placeholder="Type to search..." class="form-control" autofocus="off" autocomplete="off">
+                <div id="result"></div>
             </div>
         </form>
-
-       
 
         <div class="field">
             <label for="country-dropdown">Country</label>
             <select id='country-dropdown' name='country-dropdown'>
                 <?php
-                    displayCountriesList();
+                displayCountriesList();
                 ?>
             </select>
         </div>
@@ -38,18 +37,42 @@
                 <option value="international_outlook_score">International Outlook Score (Highest first)</option>
             </select>
         </div>
-
-        <div class="search-list">
-            <a href="#"> List 1</a>
-        </div>
     </div>
 
     <?php
-        displayInstitutions();
+    displayInstitutions();
     ?>
 
 </main>
 
 <?php
-    include("includes/footer.php");
+include("includes/footer.php");
 ?>
+
+<!-- <script type="text/javascript">
+    jQuery(document).ready(function() {
+
+        load_data();
+
+        function load_data(query) {
+            jQuery.ajax({
+                url: "fetch.php",
+                method: "POST",
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    jQuery('#result').html(data);
+                }
+            });
+        }
+        jQuery('#search_text').keyup(function() {
+            var search = jQuery(this).val();
+            if (search != '') {
+                load_data(search);
+            } else {
+                load_data();
+            }
+        });
+    });
+</script> -->

@@ -1,13 +1,12 @@
 "use strict";
 jQuery.noConflict();
 jQuery(document).ready(function ($) {
-    console.log("working");
   filterAndUpdateByCountry($);
   sortInstitutionsAsync($);
   addToFavourite($);
   removeFromFavourite($);
   registerFormValidation($);
-  removeLogin($);
+  loadData();
 });
 
 function sortInstitutionsAsync($) {
@@ -92,11 +91,7 @@ function removeFromFavourite($) {
   });
 }
 
-function removeLogin($) {
-    $("#login").hide();
-}
-
-function registerFormValidation ($) {
+function registerFormValidation($) {
   $("form[name='registerForm']").validate({
     // Define validation rules
     rules: {
@@ -130,30 +125,53 @@ function registerFormValidation ($) {
         required: true,
         minlength: 5,
         maxlength: 30,
-        equalTo: '#password',
+        equalTo: "#password",
       },
     },
     // Specify validation error messages
     messages: {
       username: "Please provide a valid username.",
       first_name: "Please provide your first name",
-      last_name:"Please provide your last name",
+      last_name: "Please provide your last name",
       email: {
         required: "Please enter youe email",
         minlength: "Please enter a valid email",
       },
       password: {
-          required: "Please enter your password",
-          minlength: "Please enter a valid password. It must be longer that 5 characters.",
+        required: "Please enter your password",
+        minlength:
+          "Please enter a valid password. It must be longer that 5 characters.",
       },
       password_confirm: {
-          required: "Please confirm your password",
-          minlength: "Your password do not match",
-          equalTo: "Please enter the same password as above",
-      }
+        required: "Please confirm your password",
+        minlength: "Your password do not match",
+        equalTo: "Please enter the same password as above",
+      },
     },
     submitHandler: function (form) {
       form.submit();
-    }
+    },
   });
-};
+}
+
+function load_data(query) {
+  $.ajax({
+    url: "./helpers/fetch.php",
+    method: "POST",
+    data: {
+      query: query,
+    },
+    success: function (data) {
+      $("#result").html(data);
+    },
+  });
+}
+
+$("#search_text").keyup(function () {
+  var search = $(this).val();
+  if (search != "") {
+    load_data(search);
+  } else {
+    load_data();
+  }
+});

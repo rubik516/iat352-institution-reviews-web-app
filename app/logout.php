@@ -12,3 +12,7 @@ session_destroy();
 <main>
     <h2>You are logged out</h2>
 </main>
+
+<?php
+include("includes/footer.php");
+?>

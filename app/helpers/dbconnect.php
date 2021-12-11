@@ -28,4 +28,10 @@
     $numStudents = "institution.num_students";
     $internationalStudentPercentage = "institution.international_students";
     $femaleMaleRadio = "institution.female_male_ratio";
+
+	$dbhost = 'localhost';
+	$dbuser = 'root';
+	$dbpass = '';
+	$db = 'world_institution';
+	$conn = mysqli_connect($dbhost, $dbuser, $dbpass , $db) or die($conn);	
 ?>

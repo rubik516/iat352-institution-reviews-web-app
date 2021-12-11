@@ -13,6 +13,8 @@ $db = mysqli_connect('localhost', 'root', '', 'world_institution');
 
 // REGISTER USER
 if (is_post_request()) {
+
+    
     if (isset($_POST['registerBtn'])) {
 
 
