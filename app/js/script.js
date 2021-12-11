@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
   addToFavourite($);
   removeFromFavourite($);
   registerFormValidation($);
-  loadData();
+  loadData($);
 });
 
 function sortInstitutionsAsync($) {
@@ -154,7 +154,7 @@ function registerFormValidation($) {
   });
 }
 
-function load_data(query) {
+function loadData(query) {
   $.ajax({
     url: "./helpers/fetch.php",
     method: "POST",
