@@ -95,12 +95,6 @@ function registerFormValidation($) {
   $("form[name='registerForm']").validate({
     // Define validation rules
     rules: {
-      username: "required",
-      first_name: "required",
-      last_name: "required",
-      email: "required",
-      password: "required",
-      password_confirm: "required",
       username: {
         required: true,
         minlength: 5,

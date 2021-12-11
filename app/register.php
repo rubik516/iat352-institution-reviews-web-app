@@ -43,9 +43,9 @@ if(!empty($_POST["registerBtn"])) {
                     <div class="form-group pt-2">
                         <button type="submit" class="registerBtn" name="registerBtn">Register</button>
                     </div>
-                    <!-- <p>
+                    <p>
                         Already a member? <a href="login.php">Sign in</a>
-                    </p> -->
+                    </p>
                 </form>
             </div>
         </div>
