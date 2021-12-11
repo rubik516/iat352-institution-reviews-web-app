@@ -11,6 +11,7 @@
     const INSTITUTION = "institution";
     const USER = "user";
     const FAVOURITE = "favourite";
+    const COMMENT = "comment";
 
     // Columns for INSTITUTION
     $institutionId = "institution.institution_id";
@@ -29,9 +30,9 @@
     $internationalStudentPercentage = "institution.international_students";
     $femaleMaleRadio = "institution.female_male_ratio";
 
-	$dbhost = 'localhost';
-	$dbuser = 'root';
-	$dbpass = '';
-	$db = 'world_institution';
-	$conn = mysqli_connect($dbhost, $dbuser, $dbpass , $db) or die($conn);	
+//	$dbhost = 'localhost';
+//	$dbuser = 'root';
+//	$dbpass = '';
+//	$db = 'world_institution';
+//	$conn = mysqli_connect($dbhost, $dbuser, $dbpass , $db) or die($conn);
 ?>

@@ -2,12 +2,6 @@
     session_start();
     $errors = array();
 
-////    // initializing variables
-//    $username = "";
-//    $email    = "";
-//    $first_name = "";
-//    $last_name = "";
-
     if (is_post_request()) {
         if (isset($_POST['registerBtn'])) {
             register();

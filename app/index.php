@@ -49,32 +49,32 @@ include("includes/navbar.php");
 include("includes/footer.php");
 ?>
 
-<script type="text/javascript">
-    jQuery(document).ready(function() {
-
-        load_data();
-
-        function load_data(query) {
-            jQuery.ajax({
-                url: "./helpers/fetch.php",
-                method: "POST",
-                data: {
-                    query: query
-                },
-                success: function(data) {
-                    jQuery('#result').html(data);
-                }
-            });
-
-            jQuery('#search_text').keyup(function() {
-            var search = jQuery(this).val();
-            if (search != '') {
-                load_data(search);
-            } else {
-                load_data();
-            }
-        });
-        }
-        
-    });
-</script>
+<!--<script type="text/javascript">-->
+<!--    jQuery(document).ready(function() {-->
+<!---->
+<!--        load_data();-->
+<!---->
+<!--        function load_data(query) {-->
+<!--            jQuery.ajax({-->
+<!--                url: "./helpers/fetch.php",-->
+<!--                method: "POST",-->
+<!--                data: {-->
+<!--                    query: query-->
+<!--                },-->
+<!--                success: function(data) {-->
+<!--                    jQuery('#result').html(data);-->
+<!--                }-->
+<!--            });-->
+<!---->
+<!--            jQuery('#search_text').keyup(function() {-->
+<!--            var search = jQuery(this).val();-->
+<!--            if (search != '') {-->
+<!--                load_data(search);-->
+<!--            } else {-->
+<!--                load_data();-->
+<!--            }-->
+<!--        });-->
+<!--        }-->
+<!--        -->
+<!--    });-->
+<!--</script>-->

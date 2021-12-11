@@ -52,4 +52,18 @@
         }
         return $orderBy;
     }
+
+    function insertInstitutionCommentQuery() {
+        // NULL value for the first field since it will be auto incremented in the database
+        // NOW() takes the current time in the format YYYY-MM-DD HH:MM:SS
+        return "INSERT INTO " . COMMENT . " VALUES " . "(NULL, ?, NOW(), ?, ?);";
+    }
+
+    function fetchCommentOnInstitutionQuery() {
+        return "SELECT " . COMMENT . ".body, " . COMMENT . ".datetime_posted, " .
+            USER . ".first_name, " . USER . ".last_name, " . USER . ".username" .
+            " FROM " . COMMENT . " JOIN " . USER . " ON " . COMMENT . ".commenter = " . USER . ".email" .
+            " WHERE " . COMMENT . ".on_institution = ?" .
+            " ORDER BY " . COMMENT . ".datetime_posted DESC;";
+    }
 ?>

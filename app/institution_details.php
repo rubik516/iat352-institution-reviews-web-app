@@ -29,6 +29,21 @@
             }
         }
     ?>
+
+    <section id="share-comment">
+        <h2>Share your experience with this institution</h2>
+        <form id="new-comment" method="post" action="./helpers/add_new_comment.php">
+            <textarea class="institution-comment" name="institution-comment" form="new-comment"></textarea>
+            <input type="submit" value="Share" class="button">
+        </form>
+    </section>
+
+    <section id="comment-list">
+        <h2>Read others' experience with this institution</h2>
+        <?php
+            displayComments($clickedInstitution['name']);
+        ?>
+    </section>
 </main>
 
 <?php

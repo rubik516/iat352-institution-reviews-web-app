@@ -3,8 +3,8 @@
 
     session_start();
     $user = $_SESSION['email'];
-    if (isset($_GET['institutionToBeRemoved'])) {
-        removeFromFavourite($user, $_GET['institutionToBeRemoved']);
+    if (isset($_POST['institutionToBeRemoved'])) {
+        removeFromFavourite($user, $_POST['institutionToBeRemoved']);
     } else {
         echo "Error occurred! Can't remove from favourite!";
         exit;

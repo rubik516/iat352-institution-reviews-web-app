@@ -8,6 +8,7 @@ jQuery(document).ready(function ($) {
   addToFavourite($);
   removeFromFavourite($);
   registerFormValidation($);
+  insertInstitutionComment($);
 });
 
 function sortInstitutionsAsync($) {
@@ -56,7 +57,7 @@ function addToFavourite($) {
     event.preventDefault();
     let addFavouriteUrl = $(this).attr("href");
     $.ajax({
-      type: "GET",
+      type: "POST",
       url: addFavouriteUrl,
       data: {
         favouriteInstitution: document.getElementsByTagName("h1")[0].innerText,
@@ -65,7 +66,7 @@ function addToFavourite($) {
         window.location.reload();
       },
       fail: function (response) {
-        console.log("Filter by country fail");
+        console.log("Add to favourite failed");
       },
     });
   });
@@ -76,7 +77,7 @@ function removeFromFavourite($) {
     event.preventDefault();
     let removeFavouriteUrl = $(this).attr("href");
     $.ajax({
-      type: "GET",
+      type: "POST",
       url: removeFavouriteUrl,
       data: {
         institutionToBeRemoved:
@@ -86,7 +87,28 @@ function removeFromFavourite($) {
         window.location.reload();
       },
       fail: function (response) {
-        console.log("Filter by country fail");
+        console.log("Remove from favourite failed");
+      },
+    });
+  });
+}
+
+function insertInstitutionComment($) {
+  $("#new-comment").submit(function (event) {
+    event.preventDefault();
+    let addCommentUrl = $(this).attr('action');
+    $.ajax({
+      type: "POST",
+      url: addCommentUrl,
+      data: {
+        institutionComment: document.querySelector("textarea[name='institution-comment']").value,
+        onInstitution: document.getElementsByTagName("h1")[0].innerText,
+      },
+      success: function (response) {
+        window.location.reload();
+      },
+      fail: function (response) {
+        console.log("Insert comment failed");
       },
     });
   });

@@ -14,10 +14,24 @@
 
 body {
     font-size: 1rem;
+    background-color: rgb(240, 240, 240);
 }
 
 main {
     margin: 10rem 6rem;
+}
+
+.bold {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 nav {
@@ -101,11 +115,6 @@ div.item-list.grid.three-columns {
     grid-row-gap: 1.5rem;
 }
 
-.item-card .title {
-    font-size: 1.25rem;
-    font-weight: bold;
-}
-
 .filter-group {
     margin-top: 3rem;
     margin-bottom: 2rem;
@@ -120,21 +129,25 @@ div.item-list.grid.three-columns {
 
 .field label {
     position: absolute;
-    background-color: white;
     padding: 0 0.5rem;
     top: -0.6rem;
     left: 0.75rem;
 }
 
-input, select {
+input, select, textarea {
     padding: 1.25rem;
     border: solid 1px;
     border-radius: 0.5rem;
     width: 100%;
 }
 
+input, select, label {
+    background-color: rgb(240, 240, 240);
+}
+
 input:hover, input:focus, select:hover, select:focus {
     outline: 1px solid black;
+    background-color: white;
 }
 
 .institution-details {
@@ -149,3 +162,57 @@ input:hover, input:focus, select:hover, select:focus {
 label.error{
     color:red;
 }
+
+section#comment-list, section#share-comment {
+    margin-top: 4rem;
+}
+
+section#comment-list h2, section#share-comment h2 {
+    margin-bottom: 3rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form .button {
+    width: fit-content;
+    align-self: flex-end;
+}
+
+textarea {
+    display: block;
+    resize: none;
+    min-height: 16rem;
+    background-color: var(--sand-orange);
+    border-color: var(--oregon-blue);
+    outline-color: transparent;
+}
+
+textarea:hover, textarea:focus {
+    background-color: white;
+    outline-color: var(--oregon-blue);
+}
+
+#comment-list .comment-item {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+#comment-list .comment-item .flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#comment-list .comment-item .flex .comment-time {
+    text-align: right;
+}
+
+#comment-list .comment-item .comment-body {
+    margin-top: 1.5rem;
+}
+
