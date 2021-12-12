@@ -8,12 +8,14 @@
         exit;
     } else {
         $user = $_SESSION['email'];
-        if (isset($_POST['favouriteInstitution'])) {
-            insertFavouriteInstitution($user, $_POST['favouriteInstitution']);
+        if (isset($_POST['institutionComment'])) {
+            $comment = $_POST['institutionComment'];
+            $institution = $_POST['onInstitution'];
+            insertInstitutionComment($comment, $user, $institution);
             $response = array('success' => "success");
             echo json_encode($response);
         } else {
-            echo "Error occurred! Can't add to favourite!";
+            echo "Error occurred! Can't add comment!";
             exit;
         }
     }

@@ -20,6 +20,14 @@
         disconnectFromDatabase();
     }
 
+    function displayComments($institution) {
+        connectToDatabase();
+        $comments = fetchCommentsOnInstitution($institution);
+        displayAllComments($comments);
+        freeQueryResult($comments);
+        disconnectFromDatabase();
+    }
+
     function displayCountriesList() {
         connectToDatabase();
         $countries = fetchCountries();
@@ -43,16 +51,14 @@
     function displayInstitutionSummary($institutions) {
         echo "<div id='institution-list' class='item-list grid three-columns'>";
         foreach($institutions as $institution) {
-            echo "<div class='item-card'>";
-            echo "<a href='institution_details.php?institution=" . $institution['name'] . "'>";
-            echo "<p class='title'>" . contentOrNotAvailable($institution['name']) . "</p>";
+            echo "<a href='institution_details.php?institution=" . $institution['name'] . "' class='item-card'>";
+            echo "<p class='bold'>" . contentOrNotAvailable($institution['name']) . "</p>";
             echo "<p>" . contentOrNotAvailable($institution['country']) . "</p>";
             echo "<p>World rank: " . contentOrNotAvailable($institution['world_rank']) . "</p>";
             echo "<p>International Outlook Score: " . contentOrNotAvailable($institution['international_outlook_score']) . "</p>";
             echo "<p>Number of Students: " . contentOrNotAvailable($institution['num_students']) . "</p>";
             echo "<p>International Students Percentage: " . displayPercentage(contentOrNotAvailable($institution['international_students'])) . "</p>";
             echo "</a>";
-            echo "</div>";
         }
         echo "</div>";
     }
@@ -73,6 +79,21 @@
         echo "<p>International Students Percentage: " . displayPercentage(contentOrNotAvailable($institution['international_students'])) . "</p>";
         echo "<p>Female : Male Ratio: " . contentOrNotAvailable($institution['female_male_ratio']) . "</p>";
         echo "</div>";
+    }
+
+    function displayAllComments($comments) {
+        foreach($comments as $comment) {
+            echo "<div class='comment-item'>";
+            echo "<div class='flex'>";
+            echo "<div class='user-info'>";
+            echo "<p class='bold'>". $comment['first_name']  . " " . $comment['last_name'] ."</p>";
+            echo "<p>@". $comment['username'] ."</p>";
+            echo "</div>";
+            echo "<p class='italic comment-time'>". $comment['datetime_posted'] ."</p>";
+            echo "</div>";
+            echo "<p class='comment-body'>". nl2br($comment['body']) . "</p>";
+            echo "</div>";
+        }
     }
 
     function populateCountryDropdown($countries) {
@@ -100,8 +121,4 @@
         }
         return "";
     }
-
-    function is_post_request() {
-        return $_SERVER['REQUEST_METHOD'] == 'POST';
-      }
 ?>

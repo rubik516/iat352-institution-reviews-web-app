@@ -14,10 +14,24 @@
 
 body {
     font-size: 1rem;
+    background-color: rgb(240, 240, 240);
 }
 
 main {
     margin: 10rem 6rem;
+}
+
+.bold {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 nav {
@@ -70,7 +84,7 @@ button:hover, button:focus, .button:hover, .button:focus {
     color: black;
 }
 
-div.item-card {
+.item-card {
     background-color: white;
     border: solid gray 1px;
     border-radius: 1rem;
@@ -78,16 +92,15 @@ div.item-card {
     transform: scale(1);
 }
 
-div.item-card:hover, div.item-card:focus {
+.item-card:hover, .item-card:focus {
     background-color: var(--dusky-plum);
     transform: scale(1.02);
-}
-
-div.item-card:hover a, div.item-card:focus a {
     color: white;
+    outline: transparent;
+    border: transparent;
 }
 
-div.item-card:active {
+.item-card:active {
     transform: scale(0.96);
 }
 
@@ -98,13 +111,8 @@ div.item-list {
 div.item-list.grid.three-columns {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 0.75rem;
-    grid-row-gap: 0.75rem;
-}
-
-div.item-card .title {
-    font-size: 1.25rem;
-    font-weight: bold;
+    grid-column-gap: 1.5rem;
+    grid-row-gap: 1.5rem;
 }
 
 .filter-group {
@@ -121,17 +129,25 @@ div.item-card .title {
 
 .field label {
     position: absolute;
-    background-color: white;
     padding: 0 0.5rem;
     top: -0.6rem;
     left: 0.75rem;
 }
 
-input, select {
+input, select, textarea {
     padding: 1.25rem;
     border: solid 1px;
     border-radius: 0.5rem;
     width: 100%;
+}
+
+input, select, label {
+    background-color: rgb(240, 240, 240);
+}
+
+input:hover, input:focus, select:hover, select:focus {
+    outline: 1px solid black;
+    background-color: white;
 }
 
 .institution-details {
@@ -145,4 +161,87 @@ input, select {
 
 label.error{
     color:red;
+}
+
+section#comment-list, section#share-comment {
+    margin-top: 4rem;
+}
+
+section#comment-list h2, section#share-comment h2 {
+    margin-bottom: 3rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+form .button, button {
+    width: fit-content;
+    align-self: flex-end;
+}
+
+textarea {
+    display: block;
+    resize: none;
+    min-height: 16rem;
+    background-color: var(--sand-orange);
+    border-color: var(--oregon-blue);
+    outline-color: transparent;
+}
+
+textarea:hover, textarea:focus {
+    background-color: white;
+    outline-color: var(--oregon-blue);
+}
+
+#comment-list .comment-item {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 1rem;
+}
+
+#comment-list .comment-item .flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#comment-list .comment-item .flex .comment-time {
+    text-align: right;
+}
+
+#comment-list .comment-item .comment-body {
+    margin-top: 1.5rem;
+}
+
+form#login-form, form#register-form {
+    margin-top: 3rem;
+}
+
+form#login-form button, form#register-form button {
+    align-self: flex-start;
+}
+
+form#login-form .field, form#register-form .field {
+    margin-top: 2rem;
+}
+
+p.authentication-secondary {
+    margin-top: 1rem;
+}
+
+p.authentication-secondary a {
+    text-decoration: underline;
+    color: var(--oregon-blue);
+}
+
+p.authentication-secondary a:hover, p.authentication-secondary a:focus {
+    color: var(--rose-desert)
+}
+
+h2.no-data-message {
+    margin-top: 25vh;
+    text-align: center;
 }

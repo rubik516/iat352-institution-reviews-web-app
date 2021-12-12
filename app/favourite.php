@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include("helpers/helper_pages.php");
     $title = "My Favourite";
     setHeaderAndPageTitle($title);
@@ -9,11 +10,17 @@
 <main>
     <h1>My Favourite</h1>
     <?php
-        connectToDatabase();
-        $favourites = fetchMyFavourite("user@example.com");
-        displayInstitutionSummary($favourites);
-        freeQueryResult($favourites);
-        disconnectFromDatabase();
+        if (isset($_SESSION['email'])) {
+            connectToDatabase();
+            $favourites = fetchMyFavourite($_SESSION['email']);
+            if ($favourites->num_rows > 0) {
+                displayInstitutionSummary($favourites);
+            } else {
+                echo "<h2 class='no-data-message'>No favourite institution in your list</h2>";
+            }
+            freeQueryResult($favourites);
+            disconnectFromDatabase();
+        }
     ?>
 </main>
 

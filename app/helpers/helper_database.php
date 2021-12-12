@@ -31,6 +31,11 @@
         return $db->query($query);
     }
 
+    function sanitizeInput($input) {
+        global $db;
+        return $db->real_escape_string($input);
+    }
+
     function fetchInstitutions($requiredSorting) {
         $query = fetchInstitutionsQuery();
         if ($requiredSorting) {
@@ -71,13 +76,13 @@
         return $statement->get_result();
     }
 
-    function insertFavouriteInstitution($institutionName) {
+    function insertFavouriteInstitution($user, $institutionName) {
         global $db;
         $query = insertFavouriteInstitutionQuery();
 
         connectToDatabase();
         $statement = $db->prepare($query);
-        $statement->bind_param("s", $institutionName);
+        $statement->bind_param("ss", $user, $institutionName);
         $statement->execute();
         // INSERT is a non-DML operation, so free_result is not necessary
         disconnectFromDatabase();
@@ -85,11 +90,11 @@
 
     function removeFromFavourite($user, $institutionName) {
         global $db;
-        $query = removeFromFavouriteQuery($user);
+        $query = removeFromFavouriteQuery();
 
         connectToDatabase();
         $statement = $db->prepare($query);
-        $statement->bind_param("s", $institutionName);
+        $statement->bind_param("ss", $user, $institutionName);
         $statement->execute();
         // DELETE is a non-DML operation, so free_result is not necessary
         disconnectFromDatabase();
@@ -109,6 +114,29 @@
         disconnectFromDatabase();
 
         return $count > 0;
+    }
+
+    function insertInstitutionComment($body, $commenter, $institutionName) {
+        global $db;
+        $query = insertInstitutionCommentQuery();
+
+        connectToDatabase();
+        $cleanedInput = sanitizeInput($body);
+        $statement = $db->prepare($query);
+        $statement->bind_param("sss", $cleanedInput, $commenter, $institutionName);
+        $statement->execute();
+        // INSERT is a non-DML operation, so free_result is not necessary
+        disconnectFromDatabase();
+    }
+
+    function fetchCommentsOnInstitution($institutionName) {
+        global $db;
+        $query = fetchCommentOnInstitutionQuery();
+
+        $statement = $db->prepare($query);
+        $statement->bind_param("s", $institutionName);
+        $statement->execute();
+        return $statement->get_result();
     }
 
     function queryByCountry() {

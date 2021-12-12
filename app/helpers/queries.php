@@ -30,17 +30,17 @@
     }
 
     function insertFavouriteInstitutionQuery() {
-        return "INSERT INTO " . FAVOURITE . " VALUES " . "(\"user@example.com\", ?);";
+        return "INSERT INTO " . FAVOURITE . " VALUES " . "(?, ?);";
     }
 
     function isFavouriteInstitutionQuery($user) {
         return "SELECT count(*) AS institution_count FROM " . FAVOURITE .
-            " WHERE user = \"" . $user . "\" AND " . " institution = ?;";
+            " WHERE user = \"" . $user . "\" AND institution = ?;";
     }
 
-    function removeFromFavouriteQuery($user) {
+    function removeFromFavouriteQuery() {
         return "DELETE FROM " . FAVOURITE .
-            " WHERE user = \"" . $user . "\" AND " . " institution = ?;";
+            " WHERE user = ? AND institution = ?;";
     }
 
     function orderBy($option) {
@@ -51,5 +51,19 @@
             $orderBy .= " DESC;";
         }
         return $orderBy;
+    }
+
+    function insertInstitutionCommentQuery() {
+        // NULL value for the first field since it will be auto incremented in the database
+        // NOW() takes the current time in the format YYYY-MM-DD HH:MM:SS
+        return "INSERT INTO " . COMMENT . " VALUES " . "(NULL, ?, NOW(), ?, ?);";
+    }
+
+    function fetchCommentOnInstitutionQuery() {
+        return "SELECT " . COMMENT . ".body, " . COMMENT . ".datetime_posted, " .
+            USER . ".first_name, " . USER . ".last_name, " . USER . ".username" .
+            " FROM " . COMMENT . " JOIN " . USER . " ON " . COMMENT . ".commenter = " . USER . ".email" .
+            " WHERE " . COMMENT . ".on_institution = ?" .
+            " ORDER BY " . COMMENT . ".datetime_posted DESC;";
     }
 ?>
