@@ -176,7 +176,7 @@ form {
     flex-direction: column;
 }
 
-form .button {
+form .button, button {
     width: fit-content;
     align-self: flex-end;
 }
@@ -216,3 +216,27 @@ textarea:hover, textarea:focus {
     margin-top: 1.5rem;
 }
 
+form#login-form, form#register-form {
+    margin-top: 3rem;
+}
+
+form#login-form button, form#register-form button {
+    align-self: flex-start;
+}
+
+form#login-form .field, form#register-form .field {
+    margin-top: 2rem;
+}
+
+p.authentication-secondary {
+    margin-top: 1rem;
+}
+
+p.authentication-secondary a {
+    text-decoration: underline;
+    color: var(--oregon-blue);
+}
+
+p.authentication-secondary a:hover, p.authentication-secondary a:focus {
+    color: var(--rose-desert)
+}

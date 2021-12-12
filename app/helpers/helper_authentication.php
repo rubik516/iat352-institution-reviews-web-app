@@ -24,8 +24,8 @@
         $email = sanitizeInput($_POST['email']);
         $first_name = sanitizeInput($_POST['first_name']);
         $last_name = sanitizeInput($_POST['last_name']);
-        $password_1 =sanitizeInput($_POST['password_1']);
-        $password_2 = sanitizeInput($_POST['password_2']);
+        $password_1 = sanitizeInput($_POST['password']);
+        $password_2 = sanitizeInput($_POST['password_confirm']);
 
 //        $user_check_query = "SELECT * FROM user WHERE username='$username' OR email='$email' LIMIT 1";
 //        $result = mysqli_query($db, $user_check_query);
@@ -66,7 +66,7 @@
             $password = md5($password);
             $query = "SELECT * FROM " . USER . " WHERE username='$username' AND password='$password'";
             $results = queryDatabase($query);
-            if (mysqli_num_rows($results) == 1) {
+            if ($results->num_rows == 1) {
                 $user = mysqli_fetch_assoc($results);
                 $_SESSION['username'] = $username;
                 $_SESSION['first_name'] = $user['first_name'];
@@ -78,6 +78,7 @@
                 header('location: profile.php');
             } else {
                 array_push($errors, "Wrong username/password combination");
+                array_push($errors, $query);
             }
         }
     }

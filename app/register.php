@@ -1,6 +1,5 @@
 <?php
 include("includes/header.php");
-include('./helpers/helper_pages.php');
 include('helpers/helper_authentication.php');
 include("includes/navbar.php");
 
@@ -19,31 +18,42 @@ if(!empty($_POST["registerBtn"])) {
         <div class="login-container">
             <div class="register-form col-md-4 col-md-offset-4">
                 <!-- REGISTER FORM  -->
-                <form action="register.php" name="registerForm" method="post" autocomplete='off'>
+                <form id="register-form" action="register.php" name="registerForm" method="post" autocomplete='off'>
                     <h2>Register Account</h2>
 
-                    <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='username' name="username">
+                    <div class="field">
+                        <label for="username">Username</label>
+                        <input type="text" class='form-control' id="username" name="username" placeholder="Enter your username" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='first name' name="first_name">
+
+                    <div class="field">
+                        <label for="first-name">First Name</label>
+                        <input type="text" class='form-control' id="first-name" name="first_name" placeholder="Enter your first name" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <input type="text" class='form-control' placeholder='last name' name="last_name">
+
+                    <div class="field">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" class='form-control' id="last-name" placeholder='Enter your last name' name="last_name" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <input type="email" class='form-control' placeholder='email' name="email">
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="email" class='form-control' id="email" placeholder='Enter your email' name="email" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <input type="password" class='form-control' placeholder='password' id='password' name="password">
+
+                    <div class="field">
+                        <label for="password">Password</label>
+                        <input type="password" class='form-control' id="password" placeholder='Enter your password' name="password" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <input type="password" class='form-control' placeholder='confirmed password'  id='password_confirm' name="password_confirm">
+
+                    <div class="field">
+                        <label for="password_confirm">Confirm Password</label>
+                        <input type="password" class='form-control' id="password_confirm" placeholder='Confirm your password' name="password_confirm" required>
                     </div>
-                    <div class="form-group pt-2">
-                        <button type="submit" class="registerBtn" name="registerBtn">Register</button>
-                    </div>
-                    <p>
+
+                    <button type="submit" class="registerBtn" name="registerBtn">Register</button>
+
+                    <p class="authentication-secondary">
                         Already a member? <a href="login.php">Sign in</a>
                     </p>
                 </form>
