@@ -1,5 +1,8 @@
 <?php
-    include("includes/header.php");
+    include("helpers/helper_pages.php");
+    $title = "Login";
+    setHeaderAndPageTitle($title);
+
     include('helpers/helper_authentication.php');
     include("includes/navbar.php");
 ?>
@@ -11,7 +14,6 @@
             <div class="login-form col-md-4 col-md-offset-4">
                 <!-- LOGIN FORM  -->
                 <form id="login-form" action="login.php" method="post" autocomplete='off'>
-                    <?php include('helpers/errors.php'); ?>
                     <h2>Log in to your account</h2>
 
                     <div class="field">

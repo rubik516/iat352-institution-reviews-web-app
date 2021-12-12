@@ -13,7 +13,11 @@
         if (isset($_SESSION['email'])) {
             connectToDatabase();
             $favourites = fetchMyFavourite($_SESSION['email']);
-            displayInstitutionSummary($favourites);
+            if ($favourites->num_rows > 0) {
+                displayInstitutionSummary($favourites);
+            } else {
+                echo "<h2 class='no-data-message'>No favourite institution in your list</h2>";
+            }
             freeQueryResult($favourites);
             disconnectFromDatabase();
         }

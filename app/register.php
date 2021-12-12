@@ -1,15 +1,18 @@
 <?php
-include("includes/header.php");
-include('helpers/helper_authentication.php');
-include("includes/navbar.php");
+    include("helpers/helper_pages.php");
+    $title = "Register";
+    setHeaderAndPageTitle($title);
 
-if(!empty($_POST["registerBtn"])) {
-    $username = $_POST["username"];
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $password_confirm = $_POST["password_confirm"];
+    include("includes/navbar.php");
+    include("helpers/helper_authentication.php");
+
+    if(!empty($_POST["registerBtn"])) {
+        $username = $_POST["username"];
+        $first_name = $_POST["first_name"];
+        $last_name = $_POST["last_name"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $password_confirm = $_POST["password_confirm"];
 }
 
 ?>
@@ -61,4 +64,3 @@ if(!empty($_POST["registerBtn"])) {
         </div>
     </div>
 </main>
-

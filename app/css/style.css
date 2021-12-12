@@ -240,3 +240,8 @@ p.authentication-secondary a {
 p.authentication-secondary a:hover, p.authentication-secondary a:focus {
     color: var(--rose-desert)
 }
+
+h2.no-data-message {
+    margin-top: 25vh;
+    text-align: center;
+}

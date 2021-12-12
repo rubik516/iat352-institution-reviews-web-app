@@ -1,12 +1,14 @@
 <?php
-include("helpers/helper_pages.php");
-include("includes/navbar.php");
-include("includes/header.php");
 
-// TODO: Remove the username session
-session_start();
-unset($_SESSION);
-session_destroy();
+    include("helpers/helper_pages.php");
+    $title = "You're logged out";
+    setHeaderAndPageTitle($title);
+
+    include("includes/navbar.php");
+
+    session_start();
+    unset($_SESSION);
+    session_destroy();
 ?>
 
 <main>

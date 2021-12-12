@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    include("helper_database.php");
     $errors = array();
+    include('errors.php');
 
     if (is_post_request()) {
         if (isset($_POST['registerBtn'])) {
@@ -78,7 +78,6 @@
                 header('location: profile.php');
             } else {
                 array_push($errors, "Wrong username/password combination");
-                array_push($errors, $query);
             }
         }
     }

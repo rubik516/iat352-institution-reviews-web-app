@@ -91,7 +91,7 @@
             echo "</div>";
             echo "<p class='italic comment-time'>". $comment['datetime_posted'] ."</p>";
             echo "</div>";
-            echo "<p class='comment-body'>". $comment['body'] ."</p>";
+            echo "<p class='comment-body'>". nl2br($comment['body']) . "</p>";
             echo "</div>";
         }
     }
