@@ -115,33 +115,38 @@ div.item-list.grid.three-columns {
     grid-row-gap: 1.5rem;
 }
 
-.filter-group {
+.filter-note {
     margin-top: 3rem;
+    color: var(--candy-pink);
+}
+
+.filter-group {
+    margin-top: 1rem;
     margin-bottom: 2rem;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
     grid-column-gap: 1rem;
 }
 
-.field {
+.field, form#world-rank {
     position: relative;
 }
 
-.field label {
+.field label, form#world-rank legend {
     position: absolute;
     padding: 0 0.5rem;
     top: -0.6rem;
     left: 0.75rem;
 }
 
-input, select, textarea {
+input, select, textarea, form#world-rank fieldset {
     padding: 1.25rem;
     border: solid 1px;
     border-radius: 0.5rem;
     width: 100%;
 }
 
-input, select, label {
+input, select, label, legend {
     background-color: rgb(240, 240, 240);
 }
 
@@ -244,4 +249,40 @@ p.authentication-secondary a:hover, p.authentication-secondary a:focus {
 h2.no-data-message {
     margin-top: 25vh;
     text-align: center;
+}
+form#world-rank {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    /*padding: 0.5rem 0;*/
+}
+
+form#world-rank fieldset {
+    border: none;
+}
+
+form#world-rank button {
+    margin-top: 0;
+    margin-right: 2rem;
+    padding: 0.75rem 2rem;
+    align-self: center;
+}
+
+form#world-rank .input-group {
+    display: flex;
+    justify-content: space-around;
+}
+
+form#world-rank .radio {
+    width: initial;
+}
+
+form#world-rank .input-group .radio-input {
+    display: flex;
+    margin-right: 2rem;
+}
+
+form#world-rank .input-group .radio-input label {
+    margin-left: 0.5rem;
 }

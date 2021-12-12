@@ -17,6 +17,11 @@
             "\" AND " . $institutionName . " = " . FAVOURITE . ".institution" . ";";
     }
 
+    function filterInstitutionsByRankQuery() {
+        return "SELECT * FROM " . INSTITUTION . " WHERE " . INSTITUTION . ".world_rank BETWEEN ? AND ? ORDER BY " .
+            INSTITUTION . ".world_rank;";
+    }
+
     function getInstitutionByNameQuery() {
         global $institutionName;
         return "SELECT * FROM " . INSTITUTION .

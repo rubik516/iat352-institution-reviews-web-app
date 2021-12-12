@@ -11,13 +11,27 @@
 <main>
     <h1>Browse Universities Around The World</h1>
 
+    <p class="filter-note bold">Browse institutions by world rank OR filter by country</p>
     <div class="filter-group">
-        <form method="post" id="live-search">
-            <div class="field">
-                <label for="search_text">Search for institution</label>
-                <input type="text" name="institution_search" id="search_text" placeholder="Type to search..." class="form-control" autofocus="off" autocomplete="off">
-                <div id="result"></div>
-            </div>
+        <form id="world-rank" method="get">
+            <fieldset>
+                <legend>World Rank</legend>
+                <div class="input-group">
+                    <div class="radio-input">
+                        <input type="radio" id="top-rank" name="rank-option" value="1-250" class="radio">
+                        <label for="top-rank">1 - 250</label>
+                    </div>
+                    <div class="radio-input">
+                        <input type="radio" id="mid-rank" name="rank-option" value="251-500" class="radio">
+                        <label for="mid-rank">251 - 500</label>
+                    </div>
+                    <div class="radio-input">
+                        <input type="radio" id="lower-rank" name="rank-option" value="501plus" class="radio">
+                        <label for="lower-rank">501+</label>
+                    </div>
+                </div>
+            </fieldset>
+            <button type="submit">Filter</button>
         </form>
 
         <div class="field">
@@ -41,7 +55,11 @@
     </div>
 
     <?php
-    displayInstitutions();
+        if (!isset($_GET['rank-option'])) {
+            displayInstitutions();
+        } else {
+            include("filter_by_world_rank.php");
+        }
     ?>
 
 </main>
@@ -49,33 +67,3 @@
 <?php
 include("includes/footer.php");
 ?>
-
-<!--<script type="text/javascript">-->
-<!--    jQuery(document).ready(function() {-->
-<!---->
-<!--        load_data();-->
-<!---->
-<!--        function load_data(query) {-->
-<!--            jQuery.ajax({-->
-<!--                url: "./helpers/fetch.php",-->
-<!--                method: "POST",-->
-<!--                data: {-->
-<!--                    query: query-->
-<!--                },-->
-<!--                success: function(data) {-->
-<!--                    jQuery('#result').html(data);-->
-<!--                }-->
-<!--            });-->
-<!---->
-<!--            jQuery('#search_text').keyup(function() {-->
-<!--            var search = jQuery(this).val();-->
-<!--            if (search != '') {-->
-<!--                load_data(search);-->
-<!--            } else {-->
-<!--                load_data();-->
-<!--            }-->
-<!--        });-->
-<!--        }-->
-<!--        -->
-<!--    });-->
-<!--</script>-->
