@@ -67,6 +67,29 @@
         return $statement->get_result();
     }
 
+    function filterInstitutionsByRank($rankOption) {
+        global $db;
+        $query = filterInstitutionsByRankQuery();
+
+        $minValue = 0;
+        $maxValue = 0;
+        if ($rankOption == "1-250") {
+            $minValue = 1;
+            $maxValue = 250;
+        } elseif ($rankOption == "251-500") {
+            $minValue = 251;
+            $maxValue = 500;
+        } elseif ($rankOption == "501plus") {
+            $minValue = 501;
+            $maxValue = 1000; // in our dataset, the max world rank is ~800, so it's less than 1000
+        }
+
+        $statement = $db->prepare($query);
+        $statement->bind_param("ii", $minValue, $maxValue);
+        $statement->execute();
+        return $statement->get_result();
+    }
+
     function getInstitutionByName($queriedName) {
         global $db;
         $query = getInstitutionByNameQuery();
